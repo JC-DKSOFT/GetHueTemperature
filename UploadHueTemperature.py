@@ -9,10 +9,8 @@ ThingSpeakKey = "KEY"
 Sensors=[14,19,35,48]
 SensorOffsets=[-0.6875, 0.03249999999999886, 0.12249999999999872, 0.5324999999999989]
 
-SensorNames=['Køkken sensor','Gang sensor','Bryggers sensor','Kontor sensor']
-
 def GetTemperatures(SensorIDs):
-    
+#    print("Inside GetTemperatures")
     GetSensorURL="http://"+HueIP+"/api/"+HueKey+"/sensors/"
     TemperatureReadings=[0]*len(SensorIDs)
     
@@ -25,11 +23,13 @@ def GetTemperatures(SensorIDs):
 
 
 def UpdateThingSpeak(Measurements):
+#    print("Inside UpdateThingSpeak")
     postStr ="https://api.thingspeak.com/update?api_key="+ThingSpeakKey+"&field1="+str(Measurements[2])+"&field2="+str(Measurements[0])+"&field3="+str(Measurements[1])+"&field4="+str(Measurements[3])
     f = urllib.request.urlopen(postStr)
    
 
 def PerformOffsetAdjustments(SensorReadings,SensorOffsets):
+#    print("Inside PerformOffsetAdjustments")
     CorrectedMeasurement=[0]*len(SensorReadings)
 
     for Measurement in range(len(SensorReadings)):
